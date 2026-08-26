@@ -1,0 +1,29 @@
+# Privatleasingskalkylen.se
+
+> Oberoende guide och beräkningsverktyg för billeasing i Sverige.
+
+## Om tjänsten
+
+Privatleasingskalkylen.se är en oberoende jämförelseportal som hjälper svenska bilkunder förstå den verkliga månadskostnaden för privatleasing. Verktyget jämför privatleasing mot billån och kontantköp och synliggör dolda kostnader som övermilsavgifter, försäkring, service och slutbesiktning.
+
+## Huvudfunktioner
+
+- **Privatleasing vs Billån vs Kontantköp:** Jämförelse av fördelar, nackdelar och total utgift över 36 månader.
+- **Kalkylatorns logik:** Formel för verklig månadskostnad inklusive räntejustering, försäkring, fordonsskatt och engångskostnader.
+- **Dolda leasingkostnader:** STIBOR/rörlig ränta, övermilsdebitering (10–25 kr/mil), MRF-kalkyler för normalt vs onormalt slitage.
+- **FAQ:** Vanliga frågor om ränteändringar, övermil, slitage och lönsamhet jämfört med att köpa elbil.
+
+## Formel för total månadskostnad
+
+```
+Total Månadskostnad = Leasingavgift + Räntejustering + Försäkring + Fordonsskatt + (Vinterhjul + Service + Övermil) / 36
+```
+
+## Målgrupp
+
+Svenska privatpersoner som överväger privatleasing av personbil, särskilt elbilar och nya bilar med rörlig leasinghyra.
+
+## Kontakt
+
+- Webbplats: https://www.privatleasingskalkylen.se
+- Sidan innehåller annonslänkar via affiliatenätverk.
