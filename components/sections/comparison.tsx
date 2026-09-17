@@ -1,178 +1,68 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import {
-  Check,
-  X,
-  Car,
-  Landmark,
-  Wallet,
-  TrendingDown,
-  Clock,
-  ShieldAlert,
-  Banknote,
-} from 'lucide-react';
 import { Reveal } from './reveal';
 import { Badge } from '@/components/ui/badge';
+import { BookOpen, AlertTriangle, TrendingDown, Shield, Scale } from 'lucide-react';
 
-type Option = {
-  icon: typeof Car;
-  title: string;
-  subtitle: string;
-  accentClass: string;
-  pros: string[];
-  cons: string[];
-  totalLabel: string;
-  totalValue: string;
-  note: string;
-};
-
-const OPTIONS: Option[] = [
+const GUIDE_SECTIONS = [
   {
-    icon: Car,
-    title: 'Privatleasing',
-    subtitle: 'Fast eller rörlig månadshyra',
-    accentClass: 'from-primary/20 to-primary/5 text-primary',
-    pros: [
-      'Ingen kontantinsats (0 kr)',
-      'Inget andrahandsvärdes-risk',
-      'Fast förutsägbar månadskostnad',
-      'Service ofta inkluderat',
-    ],
-    cons: [
-      'Begränsad körsträcka per år',
-      'Risk för onormalt slitage vid återlämning',
-      'Rörlig ränta kan höja kostnaden',
-      'Du äger aldrig bilen',
-    ],
-    totalLabel: 'Total utgift 36 mån',
-    totalValue: '~180 000–360 000 kr',
-    note: 'Inklusive övermil & försäkring',
+    icon: TrendingDown,
+    title: 'Rörlig ränta — den största fällan',
+    body: 'De flesta privatleasingavtal har rörlig ränta kopplad till STIBOR. När Riksbanken höjer styrräntan ökar din månadskostnad direkt på nästa faktura. En höjning på 2 % kan lägga 300–600 kr/mån på en bil till 490 000 kr. Vissa avtal erbjuder fast ränta, men då till en högre ingångshyra. Fråga alltid om räntan är fast eller rörlig innan du skriver på — och använd kalkylatorns stresstest för att se effekten av upp till +3 % räntehöjning.',
   },
   {
-    icon: Landmark,
-    title: 'Billån (med restvärde)',
-    subtitle: 'Amortering + ränta',
-    accentClass: 'from-accent/20 to-accent/5 text-accent',
-    pros: [
-      'Flexibel körsträcka utan övermil',
-      'Ränteavdrag (30 %) i deklarationen',
-      'Full frihet vid försäljning',
-      'Du behåller bilens restvärde',
-    ],
-    cons: [
-      'Kräver 20 % kontantinsats',
-      'Amortering varje månad',
-      'Du bär andrahandsvärdes-risk',
-      'Hög månadskostnad vid hög ränta',
-    ],
-    totalLabel: 'Total utgift 36 mån',
-    totalValue: '~210 000–390 000 kr',
-    note: 'Netto efter ränteavdrag',
+    icon: AlertTriangle,
+    title: 'Övermilsavgifter — 12 till 25 kr per mil',
+    body: 'Kör du mer än den avtalade körsträckan debiteras övermil. Avgiften varierar mellan 12 och 25 kr per överrullad mil beroende på märke och modell. En familj som kör 500 mil mer än avtalet kan få en slutnota på 6 000–12 500 kr vid återlämning. Mätaren i kalkylatorn visar automatiskt din förväntade övermilskostnad baserat på faktisk vs avtalad körsträcka.',
   },
   {
-    icon: Wallet,
-    title: 'Kontantköp',
-    subtitle: 'Full äganderätt',
-    accentClass: 'from-chart-3/20 to-chart-3/5 text-chart-3',
-    pros: [
-      'Ingen räntekostnad alls',
-      'Full äganderätt från dag 1',
-      'Inga avtalsrestriktioner',
-      'Fri att sälja när som helst',
-    ],
-    cons: [
-      'Binder eget kapital (40 000–600 000 kr)',
-      'Bär 100 % av värdeminskningen',
-      'Ingen ränteavdragsgilla kostnad',
-      'Service & försäkring helt eget ansvar',
-    ],
-    totalLabel: 'Total utgift 36 mån',
-    totalValue: '~150 000–300 000 kr',
-    note: 'Exklusive värdeminskning',
+    icon: Shield,
+    title: 'Besiktning & onormalt slitage vid återlämning',
+    body: 'Vid återlämning genomgår bilen en besiktning enligt MRF-standard. Djupare repor genom lacken, dörruppslag, bucklor, kantstötta fälgar, fläckar i klädseln och stenskott i synfältet bedöms som onormalt slitage och debiteras. Normalt slitage — små ytliga repor och stenskott utanför synfältet — accepteras utan kostnad. En oberoende besiktning i förväg kan minska överraskningar. Budgetera 300 kr/mån som buffert.',
+  },
+  {
+    icon: Scale,
+    title: 'Billån vs leasing — när är vilket bäst?',
+    body: 'Privatleasing skyddar dig helt mot oväntade fall i andrahandsvärde — särskilt värdefullt för elbilar som degraderas snabbt. Billån blir ofta billigare per mil om du behåller bilen längre än 3 år, eftersom du behåller restvärdet vid försäljning. Kontantköp binder kapital men ger full äganderätt och noll räntekostnad. Kalkylatorn visar den totala 3-årskostnaden för alla tre alternativ sida vid sida.',
   },
 ];
 
 export function ComparisonSection() {
   return (
-    <section id="jamforelse" className="relative py-20 sm:py-28 scroll-mt-16">
+    <section id="guide" className="relative py-20 sm:py-28 scroll-mt-16 border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center mb-14">
           <Badge
             variant="outline"
-            className="mb-4 border-primary/30 bg-primary/10 text-primary"
+            className="mb-4 border-indigo-200 bg-indigo-50 text-indigo-700"
           >
-            Jämförelse
+            <BookOpen className="mr-1.5 h-3.5 w-3.5" />
+            Komplett guide
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
-            Privatleasing vs Billån vs Kontantköp 2026
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 text-balance">
+            Privatleasing vs Köpa bil 2026 — Fällorna du måste se upp för
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg leading-relaxed">
-            En ärlig nedbrytning av fördelar, nackdelar och total utgift över 36
-            månader — så att du kan fatta ett välgrundat beslut.
+          <p className="mt-4 text-slate-600 text-lg leading-relaxed">
+            En ärlig genomgång av de dolda kostnaderna som bilhandlare sällan
+            nämner — och hur du undviker dem.
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {OPTIONS.map((opt, i) => {
-            const Icon = opt.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {GUIDE_SECTIONS.map((section, i) => {
+            const Icon = section.icon;
             return (
-              <Reveal key={opt.title} delay={i * 0.12}>
-                <div className="group relative h-full rounded-2xl border border-border/60 bg-card/50 backdrop-blur-sm overflow-hidden transition-all hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
-                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                  <div className="p-6">
-                    <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${opt.accentClass} ring-1 ring-border/40 mb-4`}
-                    >
-                      <Icon className="h-6 w-6" />
-                    </div>
-
-                    <h3 className="text-xl font-semibold text-foreground">
-                      {opt.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {opt.subtitle}
-                    </p>
-
-                    <div className="mt-5 space-y-2.5">
-                      {opt.pros.map((pro) => (
-                        <div key={pro} className="flex items-start gap-2.5">
-                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/15">
-                            <Check className="h-3 w-3 text-accent" />
-                          </span>
-                          <span className="text-sm text-foreground/90">{pro}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 pt-4 border-t border-border/40 space-y-2.5">
-                      {opt.cons.map((con) => (
-                        <div key={con} className="flex items-start gap-2.5">
-                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-destructive/15">
-                            <X className="h-3 w-3 text-destructive" />
-                          </span>
-                          <span className="text-sm text-muted-foreground">
-                            {con}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 pt-4 border-t border-border/40">
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {opt.totalLabel}
-                        </span>
-                        <span className="text-xs text-muted-foreground/70">
-                          {opt.note}
-                        </span>
-                      </div>
-                      <p className="mt-1 text-lg font-bold text-foreground font-mono">
-                        {opt.totalValue}
-                      </p>
-                    </div>
+              <Reveal key={section.title} delay={i * 0.1}>
+                <div className="h-full rounded-2xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 hover:shadow-md transition-shadow">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 ring-1 ring-emerald-200 mb-4">
+                    <Icon className="h-5 w-5 text-emerald-600" />
                   </div>
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                    {section.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {section.body}
+                  </p>
                 </div>
               </Reveal>
             );
@@ -180,43 +70,26 @@ export function ComparisonSection() {
         </div>
 
         <Reveal delay={0.4} className="mt-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <InsightCard
-              icon={TrendingDown}
-              title="Värdeminskning"
-              text="Leasing skyddar mot oväntade fall i andrahandsvärde — särskilt värdefullt för elbilar."
-            />
-            <InsightCard
-              icon={Clock}
-              title="Bindningstid"
-              text="Billån blir ofta billigare per mil om du behåller bilen längre än 3 år."
-            />
-            <InsightCard
-              icon={ShieldAlert}
-              title="Riskfördelning"
-              text="Kontantköp binder kapital men ger total kontroll över försäljningstidpunkt."
-            />
+          <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-6 sm:p-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 ring-1 ring-emerald-300 shrink-0">
+                <AlertTriangle className="h-6 w-6 text-emerald-700" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900">
+                  Stresstest vid återlämning
+                </h3>
+                <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+                  Kalkylatorn visar tydligt hur mycket en räntehöjning på 2 % kostar
+                  per månad, och vad din förväntade övermil kan debiteras till vid
+                  återlämning. Använd stresstestet för att se ditt värstafallsscenario
+                  innan du skriver på avtalet.
+                </p>
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
     </section>
-  );
-}
-
-function InsightCard({
-  icon: Icon,
-  title,
-  text,
-}: {
-  icon: typeof Banknote;
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="rounded-xl border border-border/50 bg-secondary/20 p-5">
-      <Icon className="h-5 w-5 text-primary mb-3" />
-      <h4 className="text-sm font-semibold text-foreground mb-1">{title}</h4>
-      <p className="text-xs text-muted-foreground leading-relaxed">{text}</p>
-    </div>
   );
 }
